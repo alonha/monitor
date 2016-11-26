@@ -1,4 +1,7 @@
 '''
+Created on Nov 26, 2016
+
+@author: alonharel
 The source for this daemon is:
 http://www.jejik.com/articles/2007/02/a_simple_unix_linux_daemon_in_python/
 ''' 

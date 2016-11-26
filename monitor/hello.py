@@ -1,3 +1,8 @@
+'''
+Created on Nov 26, 2016
+
+@author: alonharel
+'''
 from flask import Flask
 app = Flask(__name__)
 

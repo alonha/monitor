@@ -1,13 +1,9 @@
 '''
-Created on Jan 14, 2015
+Created on Nov 26, 2016
 
 @author: alon
 '''
-'''
-Created on Jan 14, 2015
 
-@author: alon
-'''
 import logging
 import threading
 import sys
