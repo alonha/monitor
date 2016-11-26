@@ -1,0 +1,10 @@
+User: root (UID: 0) Src: 127.0.1.1:53 Dst: 0.0.0.0:0
+	State: LISTEN RTT: 0ms (var. 250ms) Recv. RTT: 0ms Snd_cwnd: 0/10
+User: root (UID: 0) Src: 127.0.0.1:631 Dst: 0.0.0.0:0
+	State: LISTEN RTT: 0ms (var. 250ms) Recv. RTT: 0ms Snd_cwnd: 0/10
+User: alonharel (UID: 1000) Src: 172.16.32.150:51121 Dst: 82.102.187.186:443
+	State: ESTABLISHED RTT: 21.193ms (var. 30.117ms) Recv. RTT: 0ms Snd_cwnd: 0/10
+User: alonharel (UID: 1000) Src: 172.16.32.135:51839 Dst: 162.213.33.49:443
+	State: CLOSE-WAIT RTT: 61.769ms (var. 64.826ms) Recv. RTT: 0ms Snd_cwnd: 0/10
+User: alonharel (UID: 1000) Src: 172.16.32.150:43490 Dst: 82.102.181.55:443
+	State: ESTABLISHED RTT: 2.758ms (var. 4.063ms) Recv. RTT: 0ms Snd_cwnd: 0/20
