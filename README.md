@@ -8,14 +8,14 @@ TBD
 # Monitor
 Runs on the platform to be monitored and connects to the Controller
 # Running the Fabric Controller:
-1. Copy code to the controller machine
-2. Change to the directory where you put the code
-3. Edit 'monitordcfg' ('e' can receive the following values: host/controller/sim/standalone)
-4. Run controller: python monitorrun.py
+-Copy code to the controller machine
+-Change to the directory where you put the code
+-Edit 'monitordcfg' ('e' can receive the following values: host/controller/sim/standalone)
+-Run controller: python monitorrun.py
 # Running monitor
-1. Copy the code to the monitored machine
-2. Change to the directory where you put the monitor code
-3. Edit/Create 'monitordcfg' file:
+-Copy the code to the monitored machine
+-Change to the directory where you put the monitor code
+-Edit/Create 'monitordcfg' file:
     - set 'e'to 'host
     - set 'd' to the required verbosity level (DEBUG/INFO/ERROR)
 (optional) log: - log file to be used by the MSA daemon (if not specified, default is: '/var/log/monitor-daemon.log')
