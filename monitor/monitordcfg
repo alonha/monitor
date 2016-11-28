@@ -1,0 +1,4 @@
+e:sim
+d:DEBUG
+log:/tmp/msa-daemon.log
+pid:/tmp/msa-daemon.pid

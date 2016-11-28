@@ -28,6 +28,10 @@ class cMonitorHandler(object):
         msg = {'type':'connect reply','monitorId':msg['monitorId'],'status':'accepted','reqId':msg['reqId']}
         controller.controllerSend(msg, sock)
         
+    def sockInfoUpdate(self, msg):
+        log.debug("From sockInfoUpdate: monitorId: %s, reqId: %d, type: %s, data: %r",msg['monitorId'], msg['reqId'], \
+                  msg['type'], msg['data'])
+        
     def monitorlTermination(self, msg):
         log.debug( "Received termination for monitor %s",msg['monitorId'])
            
@@ -44,6 +48,6 @@ class cMonitorHandler(object):
             self.agentSend(jRep)
                          
 #        
-    agentTrigMsgTypes = {"connect request": conRecHndl}
+    agentTrigMsgTypes = {"connect request": conRecHndl, "socket info update":sockInfoUpdate}
     
     

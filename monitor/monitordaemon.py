@@ -59,7 +59,7 @@ class Daemon:
 		sys.stdout.flush()
 		sys.stderr.flush()
 		si = file(self.stdin, 'r')
-		print "msadaemon: redirecting stdout to", self.stdout
+		print "monitordaemon: redirecting stdout to", self.stdout
 		so = file(self.stdout, 'a+')
 		se = file(self.stderr, 'a+', 0)
 		os.dup2(si.fileno(), sys.stdin.fileno())
@@ -155,15 +155,15 @@ class Daemon:
 		"""
 
 
-class msaDaemon(Daemon):
+class monitorDaemon(Daemon):
 	def run(self, prms):
 		#change working dir to parent's
 		os.chdir(prms['dir'])
 		mainmonitor.main(prms)
 
-def readMsaCnfg():
+def readMonitorCnfg():
 	cfgInfo={}
-	cfgFile = 'msadcfg'
+	cfgFile = 'monitordcfg'
 	try:
 		cfgF = open(cfgFile)
 	except IOError as e:
@@ -183,10 +183,10 @@ def readMsaCnfg():
 
 if __name__ == "__main__":
 	#default values for log and pid files
-	_stdout = '/var/log/msa-daemon.log'
-	pid = '/usr/local/msa-daemon.pid'
+	_stdout = '/var/log/monitor-daemon.log'
+	pid = '/usr/local/monitor-daemon.pid'
 	
-	params = readMsaCnfg()
+	params = readMonitorCnfg()
 	if 'log' in params.keys():
 		_stdout = params['log']
 	if 'pid' in params.keys():
@@ -194,7 +194,7 @@ if __name__ == "__main__":
 	
 	params.update({'dir':os.getcwd()})
 		
-	msaD = msaDaemon(pid, stdout=_stdout, attr=params)
+	msaD = monitorDaemon(pid, stdout=_stdout, attr=params)
 	if len(sys.argv) == 2:
 		if 'start' == sys.argv[1]:
 			msaD.start()

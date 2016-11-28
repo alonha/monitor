@@ -14,7 +14,7 @@ from socket import error as socket_error
 from utils import logger as log
 import sim
 
-RECV_BUFFER = 8192 # Advisable to keep it as an exponent of 2
+RECV_BUFFER = 65536 # Advisable to keep it as an exponent of 2
 CTRL_DISCONNECTED = -1
 CTRL_CONN_OK = 0
 
@@ -130,6 +130,7 @@ class cAgentBase(object):
             lenToSend = len(buff)
             totalsent = 0
                     
+            print "Total msg len: %d", lenToSend
             while totalsent < lenToSend:
                 try:
                     sent = self.ctrlSocket.send(buff[totalsent:])
@@ -145,6 +146,7 @@ class cAgentBase(object):
                 if sent == 0:
                     raise RuntimeError("socket connection broken")
                 totalsent = totalsent + sent
+                print "sent %d bytes out of: %d",sent, lenToSend
         else:
             #standalone mode
             pass

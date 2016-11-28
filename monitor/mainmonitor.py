@@ -30,7 +30,7 @@ def readCnfg():
         
         print "Working dir: ", os.getcwd()
         cfgInfo={}
-        cfgFile = 'monitorcfg'
+        cfgFile = 'monitordcfg'
         try:
             cfgF = open(cfgFile)
     

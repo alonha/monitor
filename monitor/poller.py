@@ -10,8 +10,9 @@ import copy
 import sockinfoprocess
 from utils import logger as log
 import sim
-import sockinfoparser
+import sockinfoutils
 import ophandler
+from socketinfostorage import cSocketInfoStorage as socketInfostorage
 from __builtin__ import True
     
 numOfBstUcQueues = 1480
@@ -27,7 +28,8 @@ class cPoller(object):
     '''
 
     def __init__(self, name, monitorName, command, params, \
-                 interval, readFunc, parseFunc, processFunc, runFunc, additionalInfo, asroot, simfile, init):
+                 interval, readFunc, parseFunc, processFunc, runFunc, additionalInfo, asroot, simfile, init, \
+                 storage):
         '''
         Constructor
         '''
@@ -48,6 +50,7 @@ class cPoller(object):
         self.simfile = simfile
         self.pollerInit()
         self.lastPollTime = 0
+        self.storage = storage(self.name)
         
     def pollerInit(self):
         pass
@@ -60,8 +63,8 @@ class cPoller(object):
         if (time-self.lastPollTime)*1000 > self.interval:
             self.lastPollTime = time
             info = self.readFunc(self.command, self.simfile, self.params, self.asroot)
-            self.parseFunc(info)
-            reportToController, info = self.processFunc(info)
+            info = self.parseFunc(info)
+            reportToController, info = self.processFunc(info ,self.storage)
             return reportToController, info
         #poller interval has not passed yet
         else:
@@ -69,10 +72,10 @@ class cPoller(object):
 
 
 hostPollers = {'sockinfo':{'name':"sockinfo", 'list':[], 'command':'./netlink-diag',\
-                      'params':None,'rfunc':ophandler.run_command, 'parsefunc':sockinfoparser.parseSocketOutput, \
-                      'pfunc':sockinfoprocess.sockInfoProcess,'runFunc':cPoller.pollerRun, 'pid':'', \
+                      'params':None,'rfunc':ophandler.run_command, 'parsefunc':sockinfoutils.parseSocketOutput, \
+                      'procfunc':sockinfoutils.sockInfoProcess,'runFunc':cPoller.pollerRun, 'pid':'', \
                       'additionalInfo':{}, 'asroot':False, 'simfile':'./sockinfofile','init':None, \
-                      'interval':1000}
+                      'interval':1000, 'storage':socketInfostorage}
                 }
 
 

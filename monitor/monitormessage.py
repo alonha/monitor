@@ -5,7 +5,7 @@ Created onNov 26, 2016
 '''
     
 agentRecMsgTypes = ["connect reply"]
-monitorMsgTypes = ["connect request"]
+monitorMsgTypes = ["connect request","socket info update"]
 
 
     

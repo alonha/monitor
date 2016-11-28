@@ -11,7 +11,7 @@ import collections
 import monitoruser
 from utils import logger as log
 import sim
-import sockinfoparser
+import sockinfoutils
 
 
 def run_command(command, simfile = None, params = None, as_root=False):
@@ -91,7 +91,7 @@ class cOpHandler(object):
         
         if not sim.sim:
             output = run_command(self.command, as_root=False)       
-            return sockinfoparser.parseSocketOutput(output)
+            return sockinfoutils.parseSocketOutput(output)
         else:
             output = run_command('ls', as_root=False)       
             return output

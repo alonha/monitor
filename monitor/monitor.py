@@ -38,7 +38,7 @@ class cMonitor(cAgentBase):
         if cfgfile:
             self.cfgFile = cfgfile
         else:
-            self.cfgFile = 'monitorcfg'   
+            self.cfgFile = 'monitordcfg'   
         if not interval is None:
             self.interval = interval
         ## default to 1000msec polling interval
@@ -57,12 +57,13 @@ class cMonitor(cAgentBase):
                                          pollerSet[j]['interval'], \
                                          pollerSet[j]['rfunc'], \
                                          pollerSet[j]['parsefunc'], \
-                                         pollerSet[j]['pfunc'], \
+                                         pollerSet[j]['procfunc'], \
                                          pollerSet[j]['runFunc'], \
                                          pollerSet[j]['additionalInfo'], \
                                          pollerSet[j]['asroot'], \
                                          pollerSet[j]['simfile'], \
-                                         pollerSet[j]['init'])
+                                         pollerSet[j]['init'],
+                                         pollerSet[j]['storage'])
             
             self.pollerSet.append(poller)
             
@@ -139,7 +140,7 @@ class cMonitor(cAgentBase):
         for poller in self.pollerSet:
             reportToController = False
             (reportToController, data) = poller.runFunc(poller, time)
-            log.debug("%s: poller %s returned reportToController: %s",self.name, poller.name, reportToController)
+            #log.debug("%s: poller %s returned reportToController: %s",self.name, poller.name, reportToController)
             if reportToController:
                 log.info("%s: reporting to controller", self.name)
                 self.monitorHandlers[poller.name](self, data)
@@ -200,13 +201,14 @@ class cMonitor(cAgentBase):
         data = dict()
         data['type'] = 'socket info update'
         data['reqId'] = 0
-        data['monitorId'] = self.monitorid      
+        data['monitorId'] = self.monitorId      
         data.update({'data':sockInfo})
         self.monitorSend(data)
 
           
     #messages that are received/triggered by the monitor
     monitorMsgTypes = {"connect reply":conRepHndl}
+    monitorHandlers = {'sockinfo':socketInfoUpdate}
 
        
        

@@ -19,7 +19,7 @@ from monitorhandler import cMonitorHandler as mh
 
 server_socket = None
 connList = []   # list of socket clients
-RECV_BUFFER = 4096 # Advisable to keep it as an exponent of 2
+RECV_BUFFER = 65536 # Advisable to keep it as an exponent of 2
 PORT = 8089
 if not sim.sim:
     CONTROLLER_IP = socket.gethostbyname(socket.gethostname())
@@ -106,6 +106,7 @@ def controllerRecFromSock(sock):
             try:
                 length_int =  int(length_str)
             except ValueError:
+                log.error("######### 'ValueError' from  controllerRecFromSock !!!!!!")
                 valErr = True
                 break
             length = length_int-len('::')
