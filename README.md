@@ -1,25 +1,34 @@
 # monitor
-This project has two components: 1. Controller 2. Monitor
+This project has two components: 1. Controller
+ 2. Monitor
+
 # Controller
+============
 Runs on any server
 Waits for connections initiated by monitors
 Provides the following information via a REST API (port 5555):
 TBD
+
 # Monitor
+=========
 Runs on the platform to be monitored and connects to the Controller
-# Running the Fabric Controller:
--Copy code to the controller machine
--Change to the directory where you put the code
--Edit 'monitordcfg' ('e' can receive the following values: host/controller/sim/standalone)
--Run controller: python monitorrun.py
+
+# Running the Fabric Controller
+===============================
+1. Copy code to the controller machine
+2. Change to the directory where you put the code
+3. Edit 'monitordcfg' ('e' can receive the following values: host/controller/sim/standalone)
+4. Run controller: python monitorrun.py
+
 # Running monitor
--Copy the code to the monitored machine
--Change to the directory where you put the monitor code
--Edit/Create 'monitordcfg' file:
+=================
+1. Copy the code to the monitored machine
+2. Change to the directory where you put the monitor code
+3. Edit/Create 'monitordcfg' file:
     - set 'e'to 'host
     - set 'd' to the required verbosity level (DEBUG/INFO/ERROR)
-(optional) log: - log file to be used by the MSA daemon (if not specified, default is: '/var/log/monitor-daemon.log')
-(optional) pid: - the process-od file of the daemon (if not specified, default is: '/usr/local/monitor-daemon.pid')
+    (optional) log: - log file to be used by the MSA daemon (if not specified, default is: '/var/log/monitor-daemon.log')
+    (optional) pid: - the process-od file of the daemon (if not specified, default is: '/usr/local/monitor-daemon.pid')
 Edit 'agentcfg' file:
 
 CTRLIP: - fabric controller ip-address
