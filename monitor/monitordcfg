@@ -1,4 +1,6 @@
 e:sim
 d:DEBUG
-log:/tmp/msa-daemon.log
-pid:/tmp/msa-daemon.pid
+controller_ip:127.0.0.1
+controller_port:8089
+log:/tmp/monitor-daemon.log
+pid:/tmp/monitor-daemon.pid

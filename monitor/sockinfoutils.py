@@ -73,8 +73,8 @@ def sockInfoProcess(info, storage):
         indx = storage.calcIndx(rec)
         storage.deleteEntry(indx)
             
-    if len(ret) == 0:
+    if ( (len(newList) == 0) and (len(changedList) == 0) and (len(deleteList) == 0) ):
         return False, None
     else:
-        print "ret: ", ret
+        log.debug("sending to ctrl: %s" ,str(ret))
         return True, ret

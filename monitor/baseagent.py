@@ -130,7 +130,7 @@ class cAgentBase(object):
             lenToSend = len(buff)
             totalsent = 0
                     
-            print "Total msg len: %d", lenToSend
+            #print "Total msg len: %d", lenToSend
             while totalsent < lenToSend:
                 try:
                     sent = self.ctrlSocket.send(buff[totalsent:])
@@ -146,7 +146,7 @@ class cAgentBase(object):
                 if sent == 0:
                     raise RuntimeError("socket connection broken")
                 totalsent = totalsent + sent
-                print "sent %d bytes out of: %d",sent, lenToSend
+                #print "sent %d bytes out of: %d",sent, lenToSend
         else:
             #standalone mode
             pass

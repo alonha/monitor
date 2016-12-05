@@ -20,11 +20,6 @@ from monitorhandler import cMonitorHandler as mh
 server_socket = None
 connList = []   # list of socket clients
 RECV_BUFFER = 65536 # Advisable to keep it as an exponent of 2
-PORT = 8089
-if not sim.sim:
-    CONTROLLER_IP = socket.gethostbyname(socket.gethostname())
-else:
-    CONTROLLER_IP = 'localhost'
 NUM_OF_MONITORS = 20
 monitorList = {}
 monitorSocketDict = {}
@@ -32,7 +27,7 @@ run = True
 monitorInventoryList = []
 
 
-def controllerInit():
+def controllerInit(ctrlIp, ctrlPort):
     global server_socket
     
     try:
@@ -43,12 +38,13 @@ def controllerInit():
             
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     
+    
     try:
         if not sim.sim:
-            log.debug("Controller ip %s", str(CONTROLLER_IP))
-            server_socket.bind((CONTROLLER_IP, PORT))
+            log.debug("Controller ip %s", str(ctrlIp))
+            server_socket.bind((ctrlIp, ctrlPort))
         else: #for some reason I had to add explicit address on my mac-os
-            server_socket.bind(('localhost', PORT))
+            server_socket.bind((ctrlIp, int(ctrlPort)))
         
     except socket_error as serr:
             log.error("controller socket bind error")

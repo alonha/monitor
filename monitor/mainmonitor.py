@@ -20,11 +20,17 @@ import utils
 from utils import logger as log
 from thread import error as thread_error
 from string import whitespace
-import json
 from monitor import cMonitor as mn
 import controller
 import sim
+import socket
 
+CONTROLLER_PORT = 8089
+if not sim.sim:
+    CONTROLLER_IP = socket.gethostbyname(socket.gethostname())
+else:
+    #CONTROLLER_IP = 'localhost'
+    CONTROLLER_IP = '10.0.0.11'
 
 def readCnfg():
         
@@ -58,12 +64,12 @@ def init():
     #register termination signal routine
     signal.signal(signal.SIGINT, terminationSignalHandler)
     
-def controllerInit():
+def controllerInit(ctrlIP, ctrlPort):
     #initialize fabric controller mode
     if sim.runRest == True:
         import controllerrest
             
-    controller.controllerInit()
+    controller.controllerInit(ctrlIP, ctrlPort)
               
     t = threading.Thread(target=controller.controllerWorker, args=(1,))
     t.daemon = True
@@ -95,9 +101,9 @@ def runMonitorMode():
     while True:
         time.sleep(1)
             
-def runSimMode(interval, pollerSet):
+def runSimMode(interval, pollerSet, ctrlIP, ctrlPort):
     # run in 'all-in-one' mode
-    controllerInit()
+    controllerInit(ctrlIP, ctrlPort)
     runHostMonitor(interval, pollerSet)
     runControllerMode()
    
@@ -114,17 +120,26 @@ def main(userargs=None):
     #set verbosity
     utils.uInit(userargs['d'])
     interval = userargs['t']
+    if 'controller_ip' in userargs:
+        controller_ip = userargs['controller_ip']
+    else:
+        controller_ip = CONTROLLER_IP
+    if 'controller_port' in userargs:
+        controller_port = userargs['controller_port']
+    else:
+        controller_port = CONTROLLER_PORT
+        userargs['controller_port']
   
     if userargs['e'] == 'sim':
         sim.sim = True
         sim.runRest = True
         #set the relevant poller set
-        runSimMode(interval, poller.pollers[userargs['e']])
+        runSimMode(interval, poller.pollers[userargs['e']], controller_ip, controller_port)
         
     elif userargs['e'] == 'controller':
         sim.sim = False
         sim.runRest = True
-        controllerInit()
+        controllerInit(controller_ip, controller_port)
         runControllerMode()
     
     elif userargs['e'] == 'standalone':

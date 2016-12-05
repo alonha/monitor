@@ -1,5 +1,6 @@
 # monitor
-This project has two components: 1. Controller
+This project has two components:
+ 1. Controller
  2. Monitor
 
 # Controller

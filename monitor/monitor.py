@@ -19,7 +19,8 @@ from ophandler import cOpHandler as op
 import sim
 
 
-cfgInfo = {'NAME':"default-agent", 'CTRLIP':socket.gethostbyname(socket.gethostname()), 'CTRLPORT':8089, 'TOPOLOC': 'TOR'}
+#cfgInfo = {'NAME':"default-agent", 'CTRLIP':socket.gethostbyname(socket.gethostname()), 'CTRLPORT':8089}
+cfgInfo = {'NAME':"default-agent", 'controller_ip':'10.0.0.11', 'controller_port':8089}
 switchInf = ['swp']
 maxSwitchPorts = 64
 switchInfName = 'swp'
@@ -78,7 +79,7 @@ class cMonitor(cAgentBase):
 
     
     def connectToController(self):
-        cAgentBase.connectToCntrl(self, cfgInfo['CTRLIP'], cfgInfo['CTRLPORT'])
+        cAgentBase.connectToCntrl(self, cfgInfo['controller_ip'], cfgInfo['controller_port'])
         self.establishConnectionToCtrl()
         
     def getCnfg(self):

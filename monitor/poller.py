@@ -7,7 +7,6 @@ import time
 import os
 import re
 import copy
-import sockinfoprocess
 from utils import logger as log
 import sim
 import sockinfoutils
